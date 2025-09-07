@@ -1,6 +1,6 @@
 # BBMS
 
-![alt](images/home.png)
+<!-- ![alt](images/home.png) -->
 
 Blood Bank Management System (BBMS) is a web-based application designed to efficiently manage blood donations, donors, and recipients. It provides an integrated platform for donors and recipients to ensure the availability of safe and life-saving blood for those in need.
 
@@ -36,7 +36,7 @@ To set up the BBMS application with XAMPP in your Linux environment, follow thes
 1. Clone the repository into your local machine in the directory where your PHP web server is serving files. In my case, it's located in `/opt/lampp/htdocs`.
 
    ```bash
-   git clone https://github.com/venkatasai24/BBMS.git
+   git clone https://github.com/Abhishek0628/BBMS.git
    ```
 
 2. Go to the phpMyAdmin in your web browser at
