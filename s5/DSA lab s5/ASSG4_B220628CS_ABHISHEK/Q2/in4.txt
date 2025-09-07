@@ -1,0 +1,19 @@
+a 101 5 Asma
+a 102 3 Sajeena
+a 103 4 Sourav
+a 104 7 Rohan
+a 105 1 Ruchi
+a 106 6 Parth
+a 107 9 Ravi
+a 108 8 Meena
+a 109 2 Priya
+a 110 10 Arjun
+b
+c 105 11
+d 109
+b
+c 111 12
+c 107 13
+e
+d 112
+g

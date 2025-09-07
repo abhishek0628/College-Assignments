@@ -1,0 +1,10 @@
+3
+Oliver B190011CS 19
+Emma B190012EC 20
+Ava B190013EE 21
+a Ava
+b 0
+c 2 EC
+d B190012EC
+e 0 2 CS
+f

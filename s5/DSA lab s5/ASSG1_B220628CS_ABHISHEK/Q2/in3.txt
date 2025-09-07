@@ -1,0 +1,9 @@
+a 10 Nissan 22000
+a 5 Hyundai 21000
+a 15 Chevrolet 23000
+a 3 Kia 20000
+a 7 Subaru 24000
+i
+p
+t
+e

@@ -1,0 +1,13 @@
+a 1 Toyota 20000
+a 2 Honda 18000
+a 3 Ford 25000
+s 2
+i
+p
+t
+m 2 19000
+s 2
+d 3
+s 3
+i
+e
