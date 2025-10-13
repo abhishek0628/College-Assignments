@@ -28,8 +28,37 @@ Sample Output:
 */
 
 //solution
-#include<stdio.h>
-int main()
-{
+#include <stdio.h>
+
+void museumSort(float arr[], int n, int x, int d) {
+    int start = n - x;  
+
+    for (int i = start; i < start + d && i < n; i++) {
+        float key = arr[i];
+        int j = i - 1;
+
+       
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            j--;
+        }
+        arr[j + 1] = key;
+    }
+
+    
+    for (int i = 0; i < n; i++)
+        printf("%.2f ", arr[i]);
+    printf("\n");
+}
+
+int main() {
+    int n, x, d;
+    scanf("%d", &n);
+    float arr[n];
+    for (int i = 0; i < n; i++)
+        scanf("%f", &arr[i]);
+    scanf("%d %d", &x, &d);
+
+    museumSort(arr, n, x, d);
     return 0;
 }

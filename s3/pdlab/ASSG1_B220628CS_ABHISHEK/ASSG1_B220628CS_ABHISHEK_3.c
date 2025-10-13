@@ -3,15 +3,8 @@
 3. Alice and Bob were studying trigonometric functions and they planned to code a program to
 compute an approximate value of sin(x) for given a value of x. They decided to use the following
 Taylor’s series of sin(x) for computing the same.
-sin(x) = x−
-x3
-3! +
-x5
-51−
-x7
-7! +
-x9
-9!−···
+sin(x) = x−(x3/3!)+(x5/5!)−(x7/7!) +(x9/9!)−···
+
 Given x and n, compute the sine of x using the series. The computation should use all terms in
 the series, whose degree of x is less than or equal to n. (That is including the term containing xn
 if present).
