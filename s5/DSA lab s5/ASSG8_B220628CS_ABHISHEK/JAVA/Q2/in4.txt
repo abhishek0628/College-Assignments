@@ -1,0 +1,3 @@
+Many people are surprised to learn that the internet, which we now consider a basic necessity, started as a military project. During the Cold War, the U.S. Department of Defense was concerned about maintaining communications in the event of a nuclear attack. To ensure decentralized and resilient communication, ARPANET (Advanced Research Projects Agency Network) was developed in the late 1960s. This network was the precursor to the modern internet, allowing computers to communicate with each other over long distances.The first-ever message sent over ARPANET in 1969 was simply "LOGIN", but only "LO" was transmitted before the system crashed.
+
+LOGIN

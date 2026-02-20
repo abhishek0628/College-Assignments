@@ -1,0 +1,7 @@
+a 1 Bmw 30000
+a 2 Mercedes 40000
+a 3 Audi 50000
+d 3
+s 3
+i
+e

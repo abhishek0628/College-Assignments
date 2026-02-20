@@ -1,0 +1,7 @@
+a 8 Mercedes 34000
+a 4 Volkswagen 32000
+a 12 Porsche 37000
+m 4 33000
+s 4
+i
+e

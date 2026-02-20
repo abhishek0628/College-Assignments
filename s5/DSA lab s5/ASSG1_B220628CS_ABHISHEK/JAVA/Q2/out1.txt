@@ -1,0 +1,16 @@
+2 Honda 18000
+1 Toyota 20000
+2 Honda 18000
+3 Ford 25000
+1 Toyota 20000
+2 Honda 18000
+3 Ford 25000
+3 Ford 25000
+2 Honda 18000
+1 Toyota 20000
+2 Honda 19000
+2 Honda 19000
+3 Ford 25000
+-1
+1 Toyota 20000
+2 Honda 19000
