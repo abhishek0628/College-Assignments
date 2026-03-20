@@ -1,0 +1,210 @@
+=========================
+🔹 BASIC NETWORK INFO
+=========================
+
+Linux:
+ip a                  # Show IP addresses
+ip r                  # Show routing table
+ifconfig              # (legacy) interface config
+hostname -I           # Show IP address
+
+Windows:
+ipconfig              # Show IP configuration
+ipconfig /all         # Detailed info
+
+=========================
+🔹 NETWORK CONNECTIVITY
+=========================
+
+Linux:
+ping <host>           # Check connectivity
+ping -c 4 <host>      # Limit packets
+
+Windows:
+ping <host>
+ping -n 4 <host>
+
+=========================
+🔹 ROUTE & TRACING
+=========================
+
+Linux:
+traceroute <host>     # Trace route
+tracepath <host>      # Trace path
+
+Windows:
+tracert <host>        # Trace route
+
+=========================
+🔹 DNS LOOKUP
+=========================
+
+Linux:
+nslookup <domain>
+dig <domain>
+
+Windows:
+nslookup <domain>
+
+=========================
+🔹 NETWORK CONNECTIONS
+=========================
+
+Linux:
+netstat -tulnp        # Active connections & ports
+ss -tulnp             # Modern replacement
+
+Windows:
+netstat -ano          # Active connections with PID
+
+=========================
+🔹 PORT & SERVICE CHECK
+=========================
+
+Linux:
+lsof -i :<port>       # Check port usage
+
+Windows:
+netstat -ano | findstr :<port>
+
+=========================
+🔹 FILE TRANSFER
+=========================
+
+Linux:
+scp file user@host:/path
+rsync -av source/ dest/
+
+Windows:
+ftp
+scp (via PowerShell / OpenSSH)
+
+=========================
+🔹 NETWORK INTERFACE CONTROL
+=========================
+
+Linux:
+ip link set eth0 up
+ip link set eth0 down
+
+Windows:
+netsh interface show interface
+netsh interface set interface "Wi-Fi" enable
+netsh interface set interface "Wi-Fi" disable
+
+=========================
+🔹 FIREWALL
+=========================
+
+Linux:
+ufw status
+ufw allow <port>
+ufw deny <port>
+
+iptables -L
+
+Windows:
+netsh advfirewall show allprofiles
+netsh advfirewall set allprofiles state on
+
+=========================
+🔹 ROUTING
+=========================
+
+Linux:
+ip route add <network> via <gateway>
+ip route del <network>
+
+Windows:
+route print
+route add <network> mask <mask> <gateway>
+route delete <network>
+
+=========================
+🔹 ARP & NEIGHBORS
+=========================
+
+Linux:
+arp -a
+ip neigh
+
+Windows:
+arp -a
+
+=========================
+🔹 HOSTNAME & NETWORK SETTINGS
+=========================
+
+Linux:
+hostname
+hostnamectl
+
+Windows:
+hostname
+
+=========================
+🔹 WIRELESS NETWORKS
+=========================
+
+Linux:
+nmcli dev wifi list
+iwconfig
+
+Windows:
+netsh wlan show profiles
+netsh wlan show interfaces
+
+=========================
+🔹 NETWORK SERVICES
+=========================
+
+Linux:
+systemctl restart networking
+
+Windows:
+net stop "service"
+net start "service"
+
+=========================
+🔹 PACKET ANALYSIS
+=========================
+
+Linux:
+tcpdump -i eth0
+wireshark (GUI)
+
+Windows:
+Wireshark (GUI)
+pktmon
+
+=========================
+🔹 NETWORK TESTING
+=========================
+
+Linux:
+curl http://example.com
+wget http://example.com
+
+Windows:
+curl http://example.com
+Invoke-WebRequest http://example.com
+
+=========================
+🔹 PORT SCANNING
+=========================
+
+Linux/Windows:
+nmap <target>
+
+=========================
+🔹 COMMON USE CASE FLOW
+=========================
+
+1. Check IP → ip a / ipconfig
+2. Test connectivity → ping
+3. Trace route → traceroute / tracert
+4. Check ports → netstat / ss
+5. Inspect DNS → nslookup / dig
+6. Debug traffic → tcpdump / Wireshark
+
+=========================
