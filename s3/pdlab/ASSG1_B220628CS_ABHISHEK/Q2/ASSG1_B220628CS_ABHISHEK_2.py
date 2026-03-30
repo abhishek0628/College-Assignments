@@ -1,5 +1,5 @@
-//problem
-/*
+# problem
+'''
 2. You are given a positive integer N . Print all integers from 1 to N without using any of the looping
 constructs.
 Input Format:
@@ -10,19 +10,17 @@ Sample Input:
 5
 Sample Output:
 1 2 3 4 5
-*/
+'''
 
-//solution
+# solution
 #include<stdio.h>
-void print(int n)
-{
-    if(n==0)return;
-    print(n-1);
-    printf("%d ",n);
-}
-int main()
-{
-    print(5);
-    return 0;
-
-}
+class solution:
+    def printN(self,n):
+        if n==0:
+            return
+        self.printN(n-1)
+        print(n,end=" ")
+if __name__=="__main__":
+    n=int(input("enter number: "))
+    s=solution()
+    s.printN(n)
