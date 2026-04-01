@@ -1,5 +1,6 @@
-//problem
-/*
+# problem
+
+'''
 3. Alice and Bob were studying trigonometric functions and they planned to code a program to
 compute an approximate value of sin(x) for given a value of x. They decided to use the following
 Taylor’s series of sin(x) for computing the same.
@@ -25,51 +26,8 @@ Sample Input 2:
 2
 Sample Output 2:
 0.3420
-*/
+'''
 
-//solution
-#include <stdio.h>
-#include <math.h>
-//function to calculate the factorial
-int fact(int n) 
-{
-    if (n == 0 )
-        return 1;
-        if(n==1)
-        return 1;
-    return fact(n - 1) * n;
-}
 
-//function to calculate the sin value
-float sin(int x, int n)
-{
-    float x2=x*(3.1415/180);
-    float sum = 0;
-    int count=0;
-    for (int i = 0; i <=n; i++)
-    {
-        int term=2*i+1;
-        float exp=pow(x2,term)/fact(term);
-
-        if(i%2==0)
-        {
-            sum=sum+exp;
-        }
-        else 
-        sum=sum-exp;
-    }
-    printf("%d\n",count);
-    return sum;
-}
-int main()
-{
-    int x,n;
-    scanf("%d%d",&x,&n);
-    float temp=sin(x,n);
-    printf("%0.4f",temp);
-   
-    return 0;
-
-}
 
 
