@@ -94,3 +94,70 @@ int main() {
     return 0;
 }
 ```
+## CPP
+```
+#include<stdio.h>
+int main()
+{
+    char str[1000];
+    scanf("%[^\n]%*c",str);
+    char ch;
+    int count=0;
+    scanf("%c",&ch);
+    for(int i=0;str[i]!='\0';i++)
+    {
+        if(str[i]==ch|| str[i]==ch+32)
+        {
+            count++;
+
+        }
+    }
+    printf("%d",count);
+    return 0;
+}
+```
+## JAVA
+```
+import java.util.*;
+
+public class ASSG1_B220628CS_ABHISHEK_1 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        String str = sc.nextLine();
+        char ch = sc.next().charAt(0);
+
+        str = str.toLowerCase();
+        ch = Character.toLowerCase(ch);
+
+        int count = 0;
+
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) == ch) {
+                count++;
+            }
+        }
+
+        System.out.println(count);
+    }
+}
+```
+## PYTHON
+```
+class solution:
+    def count(self,str,ch):
+        c=0
+        for i in range(len(str)):
+            if str[i]==ch:
+                c+=1
+        return c
+
+if __name__=="__main__":
+    s=solution()
+    # str=map(char,input().split())
+    str=input()
+    ch=input()
+    c=s.count(str,ch)
+    print(c)
+
+```
