@@ -24,6 +24,7 @@ Sample Output 2:
 
 //solution
 #include<stdio.h>
+#include<ctype.h>
 int main()
 {
     char str[1000];
@@ -31,9 +32,10 @@ int main()
     char ch;
     int count=0;
     scanf("%c",&ch);
+    ch=tolower(ch);
     for(int i=0;str[i]!='\0';i++)
     {
-        if(str[i]==ch|| str[i]==ch+32)
+        if(tolower(str[i])==ch)
         {
             count++;
 
