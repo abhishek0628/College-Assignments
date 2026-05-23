@@ -22,19 +22,38 @@ Sample Output 2:
 '''
 
 # solution
-class solution:
-    def count(self,str,ch):
-        c=0
-        for i in range(len(str)):
-            if str[i]==ch:
-                c+=1
-        return c
+# class solution:
+#     def count(self,str,ch):
+#         c=0
+#         for i in range(len(str)):
+#             if str[i]==ch:
+#                 c+=1
+#         return c
 
-if __name__=="__main__":
-    s=solution()
-    # str=map(char,input().split())
-    str=input()
-    ch=input()
-    c=s.count(str,ch)
-    print(c)
+# if __name__=="__main__":
+#     s=solution()
+#     # str=map(char,input().split())
+#     str=input()
+#     ch=input()
+#     c=s.count(str,ch)
+#     print(c)
+
+class Solution:
+
+    def count(self, s, ch):
+
+        s = s.lower()
+        ch = ch.lower()
+
+        return s.count(ch)
+
+
+if __name__ == "__main__":
+
+    obj = Solution()
+
+    s = input()
+    ch = input()
+
+    print(obj.count(s, ch))
 

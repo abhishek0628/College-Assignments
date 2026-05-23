@@ -1,334 +1,342 @@
-# # # def parse_input(text):
-# # #     sections = text.split("#")
+import re
 
-# # #     agent_block = sections[1].splitlines()
-# # #     env_block = sections[2].splitlines()
 
-# # #     agent_states = {}
-# # #     agents = []
-# # #     transitions = []
-# # #     env = {}
+# =========================================
+# SMART SPLIT
+# =========================================
 
-# # #     init = {}
+def smart_split(line):
 
-# # #     mode = "states"
+    """
+    Split by commas
+    but ignore commas inside {}
+    """
 
-# # #     # ---------- AGENT SECTION ----------
-# # #     for line in agent_block:
-# # #         line = line.strip()
-# # #         if not line:
-# # #             continue
+    parts = re.split(
+        r',(?![^{]*\})',
+        line
+    )
 
-# # #         # state capacities
-# # #         if ":" in line and not line.split(":")[0].strip().startswith("a"):
-# # #             k, v = line.split(":", 1)
-# # #             try:
-# # #                 agent_states[k.strip()] = int(v.strip().split(",")[0])
-# # #             except:
-# # #                 agent_states[k.strip()] = 0
+    return [p.strip() for p in parts]
 
-# # #         # agent list
-# # #         elif line.startswith("a") and "," in line:
-# # #             agents = [x.strip() for x in line.split(",")]
 
-# # #         # initial mapping
-# # #         elif ":" in line and any(a in line for a in agents):
-# # #             k, v = line.split(":")
-# # #             init[k.strip()] = [x.strip() for x in v.split(",")]
+# =========================================
+# PARSER
+# =========================================
 
-# # #         # transitions
-# # #         elif "," in line:
-# # #             parts = [x.strip() for x in line.split(",")]
-# # #             if len(parts) >= 5:
-# # #                 transitions.append(parts)
+def parse_input(text, logger=print):
 
-# # #     # ---------- ENV SECTION ----------
-# # #     env_states = []
-# # #     env_actions = []
-# # #     env_trans = []
+    logger("\n========== PARSER START ==========\n")
 
-# # #     for line in env_block:
-# # #         line = line.strip()
-# # #         if not line:
-# # #             continue
+    sections = [
+        s.strip()
+        for s in text.split("#")
+        if s.strip()
+    ]
 
-# # #         if "," in line and ":" not in line:
-# # #             env_states = [x.strip() for x in line.split(",")]
+    logger("Sections identified:")
+    logger(str(sections))
 
-# # #         elif len(line.split()) == 1:
-# # #             env_actions.append(line.strip())
+    if len(sections) < 2:
 
-# # #         elif ":" in line:
-# # #             k, v = line.split(":")
-# # #             env_trans.append((k.strip(), v.strip()))
+        return {
+            "error": "Invalid format"
+        }
 
-# # #     return {
-# # #         "states": agent_states,
-# # #         "agents": agents,
-# # #         "transitions": transitions,
-# # #         "env_states": env_states,
-# # #         "env_actions": env_actions,
-# # #         "env_trans": env_trans,
-# # #         "initial": init
-# # #     }
-# # def parse_input(text):
-# #     sections = text.split("#")
+    # =====================================
+    # BLOCKS
+    # =====================================
 
-# #     agent_block = sections[1].splitlines()
-# #     env_block = sections[2].splitlines()
+    agent_block = sections[0].splitlines()[1:]
+    env_block = sections[1].splitlines()[1:]
 
-# #     agent_states = {}
-# #     agents = []
-# #     transitions = []
-# #     init = {}
+    logger("\n========== AGENT BLOCK ==========\n")
+    logger(str(agent_block))
 
-# #     env_states = []
-# #     env_actions = []
-# #     env_trans = []
+    logger("\n========== ENV BLOCK ==========\n")
+    logger(str(env_block))
 
-# #     # -------------------------
-# #     # AGENT SECTION
-# #     # -------------------------
-# #     for line in agent_block:
-# #         line = line.strip()
-# #         if not line:
-# #             continue
-
-# #         # capacities: l0: 1, l1: 1 ...
-# #         if ":" in line and "a" not in line.split(":")[0]:
-# #             k, v = line.split(":", 1)
-# #             try:
-# #                 agent_states[k.strip()] = int(v.split(",")[0].strip())
-# #             except:
-# #                 pass
-# #             continue
-
-# #         # agent list: a1, a2
-# #         if line.startswith("a") and "," in line:
-# #             agents = [x.strip() for x in line.split(",")]
-# #             continue
-
-# #         # initial mapping: l0: a1
-# #         if ":" in line and any(a in line for a in agents):
-# #             k, v = line.split(":", 1)
-# #             state = k.strip()
-# #             agent_list = [x.strip() for x in v.split(",") if x.strip()]
-# #             init[state] = agent_list
-# #             continue
-
-# #         # transitions: l0,a1,b,a1,l1
-# #         if "," in line:
-# #             parts = [x.strip() for x in line.split(",")]
-# #             if len(parts) >= 5:
-# #                 transitions.append(parts)
-
-# #     # -------------------------
-# #     # ENV SECTION
-# #     # -------------------------
-# #     for line in env_block:
-# #         line = line.strip()
-# #         if not line:
-# #             continue
-
-# #         if "," in line and ":" not in line:
-# #             env_states = [x.strip() for x in line.split(",")]
-# #             continue
-
-# #         if len(line.split()) == 1:
-# #             env_actions.append(line.strip())
-# #             continue
-
-# #         if ":" in line:
-# #             k, v = line.split(":")
-# #             env_trans.append((k.strip(), v.strip()))
-
-# #     return {
-# #         "states": agent_states,
-# #         "agents": agents,
-# #         "transitions": transitions,
-# #         "env_states": env_states,
-# #         "env_actions": env_actions,
-# #         "env_trans": env_trans,
-# #         "initial": init
-# #     }
-# def parse_input(text):
-#     sections = text.split("#")
-
-#     if len(sections) < 3:
-#         return {
-#             "states": {},
-#             "agents": [],
-#             "transitions": [],
-#             "env_states": [],
-#             "env_actions": [],
-#             "env_trans": [],
-#             "initial": {}
-#         }
-
-#     agent_block = sections[1].splitlines()
-#     env_block = sections[2].splitlines()
-
-#     agent_states = {}
-#     agents = []
-#     transitions = []
-#     init = {}
-
-#     env_states = []
-#     env_actions = []
-#     env_trans = []
-
-#     # -------------------------
-#     # AGENT SECTION
-#     # -------------------------
-#     for line in agent_block:
-#         line = line.strip()
-#         if not line:
-#             continue
-
-#         # ---------------- capacities ----------------
-#         if ":" in line and "a" not in line.split(":")[0]:
-#             k, v = line.split(":", 1)
-#             try:
-#                 agent_states[k.strip()] = int(v.split(",")[0].strip())
-#             except:
-#                 agent_states[k.strip()] = 0
-#             continue
-
-#         # ---------------- agent list ----------------
-#         if line.startswith("a") and "," in line:
-#             agents = [x.strip() for x in line.split(",")]
-#             continue
-
-#         # ---------------- initial mapping FIX ----------------
-#         if ":" in line:
-#             k, v = line.split(":", 1)
-
-#             state = k.strip()
-#             values = v.strip()
-
-#             # only treat as initial if RHS has agents
-#             if "a" in values:
-#                 init[state] = [x.strip() for x in values.split(",") if x.strip()]
-#             continue
-
-#         # ---------------- transitions ----------------
-#         if "," in line:
-#             parts = [x.strip() for x in line.split(",")]
-#             if len(parts) >= 5:
-#                 transitions.append(parts)
-
-#     # -------------------------
-#     # ENV SECTION
-#     # -------------------------
-#     for line in env_block:
-#         line = line.strip()
-#         if not line:
-#             continue
-
-#         if "," in line and ":" not in line:
-#             env_states = [x.strip() for x in line.split(",")]
-#             continue
-
-#         if len(line.split()) == 1:
-#             env_actions.append(line.strip())
-#             continue
-
-#         if ":" in line:
-#             k, v = line.split(":")
-#             env_trans.append((k.strip(), v.strip()))
-
-#     return {
-#         "states": agent_states,
-#         "agents": agents,
-#         "transitions": transitions,
-#         "env_states": env_states,
-#         "env_actions": env_actions,
-#         "env_trans": env_trans,
-#         "initial": init
-#     }
-
-def parse_input(text):
-    sections = text.split("#")
-
-    agent_block = []
-    env_block = []
-
-    # find sections safely
-    for i, sec in enumerate(sections):
-        sec = sec.strip().lower()
-        if "agent information" in sec:
-            agent_block = sections[i].splitlines()
-        if "environment information" in sec:
-            env_block = sections[i].splitlines()
+    # =====================================
+    # AGENT VARIABLES
+    # =====================================
 
     agent_states = {}
-    agents = []
+    actions = []
+    protocol = {}
     transitions = []
-    initial_map = {}
 
-    mode = "states"
+    initial_state = None
+    leave_state = None
+
+    standalone = []
+
+    # =====================================
+    # AGENT PARSING
+    # =====================================
 
     for line in agent_block:
+
         line = line.strip()
-        if not line or line.startswith("#"):
-            continue
 
-        # state capacities: l0: 1
-        if ":" in line and not line.startswith("a"):
-            k, v = line.split(":", 1)
-            if v.strip().replace(",", "").isdigit():
-                agent_states[k.strip()] = int(v.strip())
-            else:
-                # initial mapping: l0: a1,a2
-                init_agents = [x.strip() for x in v.split(",") if x.strip()]
-                initial_map[k.strip()] = init_agents
-
-        elif line.startswith("a"):
-            agents = [x.strip() for x in line.split(",")]
-
-        elif "," in line and line.count(",") >= 4:
-            parts = [x.strip() for x in line.split(",")]
-            if len(parts) >= 5:
-                transitions.append(parts)
-
-        # fallback initial format: l0
-        elif line and ":" not in line and "," not in line:
-            if "initial_list" not in initial_map:
-                initial_map["initial_list"] = []
-            initial_map["initial_list"].append(line.strip())
-
-    # environment parsing
-    env_states = []
-    env_actions = []
-    env_trans = []
-
-    for line in env_block:
-        line = line.strip()
         if not line:
             continue
 
-        if "," in line and ":" not in line:
-            env_states = [x.strip() for x in line.split(",")]
+        logger(f"\n[AGENT LINE] {line}")
 
-        elif len(line.split()) == 1:
-            env_actions.append(line.strip())
+        # ---------------------------------
+        # STATE LABELS
+        # ---------------------------------
 
-        elif ":" in line:
+        if ":" in line and all(
+
+            ":" in p and
+            p.split(":")[1].strip() in ["0", "1"]
+
+            for p in smart_split(line)
+        ):
+
+            for p in smart_split(line):
+
+                k, v = p.split(":")
+
+                agent_states[k.strip()] = int(v.strip())
+
+            logger(f"Parsed states: {agent_states}")
+
+            continue
+
+        # ---------------------------------
+        # ACTIONS
+        # ---------------------------------
+
+        if "," in line and all(
+
+            x.strip().startswith("a")
+            for x in smart_split(line)
+
+        ) and ":" not in line:
+
+            actions = [
+                x.strip()
+                for x in smart_split(line)
+            ]
+
+            logger(f"Parsed actions: {actions}")
+
+            continue
+
+        # ---------------------------------
+        # TRANSITIONS
+        # ---------------------------------
+
+        parts = smart_split(line)
+
+        if len(parts) == 5:
+
+            transition = tuple(parts)
+
+            transitions.append(transition)
+
+            logger(
+                f"Parsed transition: {transition}"
+            )
+
+            continue
+
+        # ---------------------------------
+        # PROTOCOL
+        # ---------------------------------
+
+        if ":" in line:
+
             k, v = line.split(":", 1)
-            env_trans.append((k.strip(), v.strip()))
 
-    # FIX: ensure initial exists
-    if "initial_list" in initial_map and not any(":" in l for l in agent_block):
-        initial_map = {
-            initial_map["initial_list"][0]: initial_map["initial_list"][1:]
-        }
+            protocol[k.strip()] = [
+                x.strip()
+                for x in smart_split(v)
+            ]
 
-    return {
+            logger(
+                f"Parsed protocol: "
+                f"{k.strip()} -> "
+                f"{protocol[k.strip()]}"
+            )
+
+            continue
+
+        # ---------------------------------
+        # INITIAL / LEAVE
+        # ---------------------------------
+
+        standalone.append(line)
+
+        logger(
+            f"Standalone item found: {line}"
+        )
+
+    # =====================================
+    # INITIAL + LEAVE
+    # =====================================
+
+    if standalone:
+
+        initial_state = standalone[0]
+
+        logger(
+            f"\nInitial state: {initial_state}"
+        )
+
+        if len(standalone) > 1:
+
+            leave_state = standalone[1]
+
+            logger(
+                f"Leave state: {leave_state}"
+            )
+
+    # =====================================
+    # ENVIRONMENT VARIABLES
+    # =====================================
+
+    env_states = []
+    env_action = []
+    env_protocol = {}
+    env_trans = []
+    env_initial = None
+
+    env_stage = 0
+
+    # =====================================
+    # ENVIRONMENT PARSING
+    # =====================================
+
+    for line in env_block:
+
+        line = line.strip()
+
+        if not line:
+            continue
+
+        logger(f"\n[ENV LINE] {line}")
+
+        parts = smart_split(line)
+
+        # ---------------------------------
+        # ENV STATES
+        # ---------------------------------
+
+        if env_stage == 0 and "," in line and ":" not in line:
+
+            env_states = parts
+
+            env_stage = 1
+
+            logger(
+                f"Parsed env states: {env_states}"
+            )
+
+            continue
+
+        # ---------------------------------
+        # ENV ACTIONS
+        # ---------------------------------
+
+        if env_stage == 1 and "," in line and ":" not in line:
+
+            env_action = parts
+
+            env_stage = 2
+
+            logger(
+                f"Parsed env actions: {env_action}"
+            )
+
+            continue
+
+        # ---------------------------------
+        # ENV PROTOCOL
+        # ---------------------------------
+
+        if ":" in line:
+
+            k, v = line.split(":", 1)
+
+            env_protocol[k.strip()] = v.strip()
+
+            logger(
+                f"Parsed env protocol: "
+                f"{k.strip()} -> {v.strip()}"
+            )
+
+            continue
+
+        # ---------------------------------
+        # ENV TRANSITIONS
+        # ---------------------------------
+
+        if len(parts) == 4:
+
+            transition = tuple(parts)
+
+            env_trans.append(transition)
+
+            logger(
+                f"Parsed env transition: "
+                f"{transition}"
+            )
+
+            continue
+
+        # ---------------------------------
+        # ENV INITIAL
+        # ---------------------------------
+
+        if len(parts) == 1:
+
+            env_initial = parts[0]
+
+            logger(
+                f"Parsed env initial: "
+                f"{env_initial}"
+            )
+
+    # =====================================
+    # FINAL RESULT
+    # =====================================
+
+    result = {
+
         "states": agent_states,
-        "agents": agents,
+
+        "actions": actions,
+
+        "protocol": protocol,
+
         "transitions": transitions,
+
+        "initial": initial_state,
+
+        "leave": leave_state,
+
         "env_states": env_states,
-        "env_actions": env_actions,
-        "env_trans": env_trans,
-        "initial": initial_map
+
+        "env_action": env_action,
+
+        "env_protocol": env_protocol,
+
+        "env_initial": env_initial,
+
+        "env_trans": env_trans
     }
+
+    logger(
+        "\n========== FINAL PARSED RESULT ==========\n"
+    )
+
+    logger(str(result))
+
+    logger(
+        "\n========== PARSER END ==========\n"
+    )
+
+    return result

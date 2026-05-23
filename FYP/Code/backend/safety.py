@@ -1,5 +1,5 @@
 from encoder import encode_to_rbn
-from crp_solver import solve_crp
+from FYP.Code.backend.solver import solve_crp
 
 def check_safety(data):
     rbn = encode_to_rbn(data)

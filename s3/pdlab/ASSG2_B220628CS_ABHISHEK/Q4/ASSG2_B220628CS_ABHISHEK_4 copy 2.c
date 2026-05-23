@@ -27,13 +27,12 @@ position and the number of comparisons done by the program.
 Sample Input 1:
 9
 10
-5 3
 5 6 7 8 9 10 1 2 3
 Sample Output 1:
+5 3
 Sample Input 2:
 4
 5
-1 1
 3 5 1 2
 Sample Output 2:
 1 1

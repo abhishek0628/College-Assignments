@@ -25,4 +25,6 @@ Thumbs.db
 
 # Ignore Jupyter notebook checkpoints
 .ipynb_checkpoints
+#ignore extra files
+test.*
 
